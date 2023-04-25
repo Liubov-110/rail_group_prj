@@ -11,7 +11,7 @@ This is group project to practice django stuff.
 First, clone the repository to your local machine:
 
 ```bash
-git clone git clone https://github.com/Liubov-110/rail_group_prj.git
+git clone https://github.com/Liubov-110/rail_group_prj.git
 cd rail_group_prj/
 ```
 
