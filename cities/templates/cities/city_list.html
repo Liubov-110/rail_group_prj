@@ -5,6 +5,10 @@
 </head>
 <body>
 	<h1>Список населених пунктів</h1>
-	
+	<ul>
+		{% for city in cities %}
+		<li>{{ city.name }}</li>
+		{% endfor %}
+	</ul>
 </body>
 </html>
