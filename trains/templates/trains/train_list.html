@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trains</title>
+</head>
+<body>
+    <h1>All Trains</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Start City</th>
+                <th>End City</th>
+                <th>Travel Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for train in trains %}
+                <tr>
+                    <td>{{ train.code }}</td>
+                    <td>{{ train.start_city }}</td>
+                    <td>{{ train.end_city }}</td>
+                    <td>{{ train.travel_time }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No trains available</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

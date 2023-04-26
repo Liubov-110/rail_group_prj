@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{% if mode == 'create' %}Додати{% else %}Редагувати{% endif %} поїзд</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="code">Код:</label>
+      <input type="text" class="form-control" id="code" name="code" value="{{ train.code }}" required>
+    </div>
+    <div class="form-group">
+      <label for="start_city">Початковий населений пункт:</label>
+      <select class="form-control" id="start_city" name="start_city" required>
+        {% for city in cities %}
+          <option value="{{ city.id }}" {% if train.start_city_id == city.id %}selected{% endif %}>{{ city.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="end_city">Кінцевий населений пункт:</label>
+      <select class="form-control" id="end_city" name="end_city" required>
+        {% for city in cities %}
+          <option value="{{ city.id }}" {% if train.end_city_id == city.id %}selected{% endif %}>{{ city.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="travel_time">Час у дорозі:</label>
+      <input type="number" class="form-control" id="travel_time" name="travel_time" value="{{ train.travel_time }}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">{% if mode == 'create' %}Додати{% else %}Оновити{% endif %}</button>
+    <a href="{% url 'train_list' %}" class="btn btn-secondary">Назад до списку поїздів</a>
+  </form>
+{% endblock %}
