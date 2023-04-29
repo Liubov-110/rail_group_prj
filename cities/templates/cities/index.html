@@ -4,10 +4,24 @@
 {% endblock %}
 
 {% block content %}
-<h1>Список населених пунктів</h1>
-<ul>
-    {% for city in cities %}
-    <li>{{ city.name }}</li>
-    {% endfor %}
-</ul>
+<section id="service" class="services pt-0">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+            <span>Список населених пунктів</span>
+            <h2>Список населених пунктів</h2>
+        </div>
+
+        <div class="row gy-4">
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <ul class="list-group list-group-flush">
+                    {% for city in cities %}
+                    <li class="list-group-item">{{ city.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
 {% endblock %}

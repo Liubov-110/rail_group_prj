@@ -54,23 +54,18 @@
   <!-- End Hero Section -->
 
   <!-- Start #main -->
-  <div class="container mt-3">
-    <div class="row">
-        <div class="col-md-3">
-        </div>
-        <div class="col-md-9">
-            {% block content %}CONTENT{% endblock%}
-        </div>
+  {% include 'inc/_future.html' %}
 
-    </div>
-</div>
-  
+  {% block content %}CONTENT{% endblock%}
+
+  {% include 'inc/_testimonials.html' %}
+  {% include 'inc/_faq.html' %}
   <!-- End #main -->
 
   <!-- ======= Footer ======= -->
   {% include 'inc/_footer.html' %}
   <!-- End Footer -->
-    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
 
   <div id="preloader"></div>
