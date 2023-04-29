@@ -1,27 +1,17 @@
-# from django.db import models
-# #from django.core.validators import MaxValueValidator 
-# #from django.core.validators import RegexValidator
-
-
-
-# class Train(models.Model):
-#     #train_number = models.IntegerField(max_length=10) https://stackoverflow.com/questions/30849862/django-max-length-for-integerfield
-#     #train_number = models.IntegerField(validators=[MaxValueValidator(9999999999)]) 
-#     # or train_number = models.CharField(max_length=10, validators=[RegexValidator(r'^\d{1,10}$')]
-#     begin_of_route = models.CharField(max_length=50)
-#     begin_of_route = models.CharField(max_length=50)
-#     travel_time = models.DurationField()
-
-#     def __str__(self):
-#         return self.train_number
 from django.db import models
 from cities.models import City
 
+
 class Train(models.Model):
-    name = models.CharField(max_length=100)
-    from_city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='from_city')
-    to_city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='to_city')
-    travel_time = models.IntegerField()
+    class Meta:
+        verbose_name = 'Поїзд'
+        verbose_name_plural = 'Поїзда'
+        ordering = ["-name"]
+    
+    name = models.CharField(max_length=100, unique=True, blank=False, verbose_name = 'Номер поїзда')
+    from_city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='from_city', verbose_name = 'Відправлення')
+    to_city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='to_city', verbose_name = 'Прибуття')
+    travel_time = models.IntegerField(verbose_name = 'Час в дорозі')
 
     def __str__(self):
-        return f'Train {self.name} from {self.from_city} to {self.to_city}'
+        return f'Поїзд №: {self.name} - відправлення:=> {self.from_city} -=- прибуття: =>{self.to_city}'

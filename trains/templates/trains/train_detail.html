@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Train Details</h1>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Code</th>
-        <th>Start City</th>
-        <th>End City</th>
-        <th>Travel Time</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ train.code }}</td>
-        <td>{{ train.start_city }}</td>
-        <td>{{ train.end_city }}</td>
-        <td>{{ train.travel_time }}</td>
-      </tr>
-    </tbody>
-  </table>
+<h1>Train Details</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Start City</th>
+      <th>End City</th>
+      <th>Travel Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ train.name }}</td>
+      <td>{{ train.from_city }}</td>
+      <td>{{ train.to_city }}</td>
+      <td>{{ train.travel_time }}</td>
+    </tr>
+  </tbody>
+</table>
 {% endblock %}

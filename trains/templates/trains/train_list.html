@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Trains</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}
+{{title}} :: {{block.super}}
+{% endblock %}
+
+{% block content %}
     <h1>All Trains</h1>
     <table>
         <thead>
@@ -18,9 +17,9 @@
         <tbody>
             {% for train in trains %}
                 <tr>
-                    <td>{{ train.code }}</td>
-                    <td>{{ train.start_city }}</td>
-                    <td>{{ train.end_city }}</td>
+                    <td>{{ train.name }}</td>
+                    <td>{{ train.from_city }}</td>
+                    <td>{{ train.to_city }}</td>
                     <td>{{ train.travel_time }}</td>
                 </tr>
             {% empty %}
@@ -30,5 +29,4 @@
             {% endfor %}
         </tbody>
     </table>
-</body>
-</html>
+ {% endblock %}
