@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Результати пошуку маршрутів:</h1>
+  {% if routes %}
+    <ul>
+    {% for route in routes %}
+      <li>
+        <h3>{{ route.origin }} - {{ route.destination }}</h3>
+        <p>Час у дорозі: {{ route.travel_time }} год.</p>
+        <ul>
+        {% for train in route.trains.all %}
+          <li>Поїзд №{{ train.number }} - {{ train.origin }} - {{ train.destination }} ({{ train.travel_time }} год.)</li>
+        {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>Маршруту, що відповідає умовам пошуку, не існує.</p>
+  {% endif %}
+{% endblock %}

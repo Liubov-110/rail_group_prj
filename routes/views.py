@@ -1,46 +1,25 @@
-from django.views.generic.edit import FormView
-from django.urls import reverse_lazy
-from django.shortcuts import render
-from .forms import RouteForm
-from .models import Route, Train, City
+from django.shortcuts import render, get_object_or_404
+from .models import Route
 
-class RouteSearchView(FormView):
-    form_class = RouteForm
-    template_name = 'route_search.html'
-    success_url = reverse_lazy('route_search')
 
-    def form_valid(self, form):
-        start_city = form.cleaned_data['start_city']
-        end_city = form.cleaned_data['end_city']
-        max_travel_time = form.cleaned_data['max_travel_time']
-        intermediate_cities = form.cleaned_data['intermediate_cities']
-        directions = form.cleaned_data['directions']
+def route_search(request):
+    if request.method == 'POST':
+        start_city = request.POST['start_city']
+        end_city = request.POST['end_city']
+        travel_time = request.POST['travel_time']
+        try:
+            routes = Route.objects.filter(start_city=start_city, end_city=end_city, travel_time__lte=travel_time).order_by('travel_time')
+            return render(request, 'route_results.html', {'routes': routes})
+        except Route.DoesNotExist:
+            message = 'Маршруту, що відповідає умовам пошуку, не існує'
+            return render(request, 'route_search.html', {'message': message})
+    else:
+        return render(request, 'route_search.html')
 
-        # Пошук міст за іменами
-        start_city_obj = City.objects.get(name=start_city)
-        end_city_obj = City.objects.get(name=end_city)
-        intermediate_cities_obj = [City.objects.get(name=city) for city in intermediate_cities]
+def route_detail(request, pk):
+    route = get_object_or_404(Route, pk=pk)
+    return render(request, 'route_detail.html', {'route': route})
 
-        # Формування умов пошуку поїздів
-        train_conditions = {
-            'start_city': start_city_obj,
-            'end_city': end_city_obj,
-            'travel_time__lte': max_travel_time,
-        }
-        if directions:
-            train_conditions['direction'] = directions
-
-        if intermediate_cities_obj:
-            train_conditions['mid_cities__contains'] = intermediate_cities_obj
-
-        # Пошук поїздів зі встановленими умовами
-        trains = Train.objects.filter(**train_conditions)
-
-        # Формування маршрутів за допомогою поїздів
-        routes = []
-        for train in trains:
-            mid_cities = train.mid_cities.split(',') if train.mid_cities else []
-            route = Route(train=train, start_city=start_city_obj, end_city=end_city_obj, mid_cities=mid_cities)
-            routes.append(route)
-
-        return render(self.request, self.template_name, {'form': form, 'routes': routes})
+def route_results(request):
+    routes = Route.objects.order_by('travel_time')
+    return render(request, 'route_results.html', {'routes': routes})

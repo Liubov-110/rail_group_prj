@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ route.name }}</h1>
+  <p><strong>Початкове місто:</strong> {{ route.start_city }}</p>
+  <p><strong>Кінцеве місто:</strong> {{ route.end_city }}</p>
+  <p><strong>Час у дорозі:</strong> {{ route.travel_time }} год</p>
+  <p><strong>Проміжні міста:</strong>
+    {% if route.cities.all %}
+      {% for city in route.cities.all %}
+        {{ city }}
+        {% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    {% else %}
+      Немає
+    {% endif %}
+  </p>
+  <p><strong>Поїзди:</strong></p>
+  <ul>
+    {% for train in route.train_set.all %}
+      <li>{{ train.name }} - з {{ train.departure_city }} о {{ train.departure_time }} до {{ train.destination_city }} о {{ train.destination_time }}</li>
+    {% empty %}
+      <li>Немає поїздів</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
