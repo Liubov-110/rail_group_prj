@@ -23,9 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('cities.urls')),
     path('trains', include('trains.urls')),
-    # path('', include('routes.urls')),
+    path('routes', include('routes.urls')),
     # path('', include('results.urls')),
-    # path('', include('saved_routes.urls')),
+    path('saved_routes', include('saved_routes.urls')),
 ]
 
 if settings.DEBUG:
