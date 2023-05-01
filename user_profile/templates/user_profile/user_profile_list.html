@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Список користувачів</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Ім'я</th>
+        <th>Прізвище</th>
+        <th>Email</th>
+        <th>Дата реєстрації</th>
+        <th>Опції</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+        <tr>
+          <td>{{ user.first_name }}</td>
+          <td>{{ user.last_name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.date_joined }}</td>
+          <td><a href="{% url 'user_profile_edit' user.id %}">Редагувати профіль</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
