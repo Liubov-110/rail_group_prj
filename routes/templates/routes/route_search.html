@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Пошук маршруту</title>
+</head>
+<body>
+  <h1>Пошук маршруту</h1>
+  <form method="GET">
+    <label for="start_city">Початковий пункт:</label>
+    <select name="start_city" id="start_city">
+      {% for city in cities %}
+      <option value="{{ city.id }}">{{ city.name }}</option>
+      {% endfor %}
+    </select>
+    <br>
+
+    <label for="end_city">Кінцевий пункт:</label>
+    <select name="end_city" id="end_city">
+      {% for city in cities %}
+      <option value="{{ city.id }}">{{ city.name }}</option>
+      {% endfor %}
+    </select>
+    <br>
+
+    <label for="max_travel_time">Максимальний час у дорозі:</label>
+    <input type="number" name="max_travel_time" id="max_travel_time">
+    <br>
+
+    <label for="intermediate_cities">Проміжні пункти:</label>
+    <input type="text" name="intermediate_cities" id="intermediate_cities">
+    <br>
+
+    <input type="submit" value="Знайти маршрути">
+  </form>
+
+  {% if routes %}
+  <h2>Результати пошуку:</h2>
+  <ul>
+    {% for route in routes %}
+    <li>{{ route }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</body>
+</html>

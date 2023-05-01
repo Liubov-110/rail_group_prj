@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ object.name }}</h1>
+  <ul>
+    {% for trip in object.trip_set.all %}
+      <li>{{ trip.start_city.name }} -> {{ trip.end_city.name }} ({{ trip.travel_time }})</li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'savedroute_update' pk=object.pk %}">Edit</a>
+  <form action="{% url 'savedroute_delete' pk=object.pk %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+  </form>
+{% endblock %}
